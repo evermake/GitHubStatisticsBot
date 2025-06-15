@@ -1,0 +1,15 @@
+{
+  "name": "github-stats-bot",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "tsx watch --env-file=.env main.ts"
+  },
+  "packageManager": "pnpm@10.12.1",
+  "dependencies": {
+    "grammy": "^1.36.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.1",
+    "tsx": "^4.20.3"
+  }
+}
