@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Time Stats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: 768px 512px;
+      margin: 0;
+    }
+
+    :root {
+      --c-borders: #D2D2D2;
+      --c-labels: #767676;
+      --c-red: #D1242F;
+      --c-yellow: #FFCA61;
+      --c-blue: #0969DA;
+      --c-purple: #8250DF;
+      --c-green: #1F883D;
+      --c-brown: #9A6700;
+
+      min-height: 100vh;
+      font-family: "Geist", sans-serif;
+      font-size: 16px;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .root {
+      background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%3Cdefs%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M0%200h100v100H0z%22%20id%3D%22reuse-0%22%2F%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%22url(%23a)%22%3E%3Cuse%20xlink%3Ahref%3D%22%23reuse-0%22%2F%3E%3Cg%20clip-path%3D%22url(%23b)%22%20fill%3D%22%23D2D2D2%22%3E%3Cpath%20d%3D%22m57.013-53%20.707.707L-49.053%2054.48l-.707-.707L57.013-53ZM64.155-45.858l.707.707L-41.911%2061.622l-.707-.707L64.154-45.858ZM71.296-38.717l.707.708L-34.77%2068.764l-.707-.707L71.296-38.716ZM78.438-31.575l.707.707L-27.628%2075.906l-.707-.708L78.438-31.575ZM85.58-24.433l.707.707L-20.486%2083.047l-.707-.707L85.58-24.433ZM92.722-17.291l.707.707L-13.344%2090.189l-.707-.707L92.722-17.29ZM99.864-10.15l.707.708L-6.202%2097.33l-.708-.707L99.863-10.15ZM107.005-3.007l.707.707L.939%20104.473l-.707-.707L107.005-3.007ZM114.147%204.134l.707.707L8.081%20111.614l-.707-.707L114.147%204.134ZM121.289%2011.276l.707.707L15.223%20118.756l-.707-.707L121.289%2011.276ZM128.431%2018.418l.707.707L22.365%20125.898l-.707-.707L128.43%2018.418ZM135.572%2025.56l.707.707L29.506%20133.04l-.707-.707L135.572%2025.56ZM142.714%2032.701l.707.707L36.648%20140.183l-.707-.708L142.714%2032.701ZM149.856%2039.843l.707.707L43.79%20147.323l-.707-.707L149.856%2039.843Z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cdefs%3E%3CclipPath%20id%3D%22a%22%3E%3Cuse%20xlink%3Ahref%3D%22%23reuse-0%22%2F%3E%3C%2FclipPath%3E%3CclipPath%20id%3D%22b%22%3E%3Cpath%20fill%3D%22%23fff%22%20transform%3D%22rotate(45%2092.483%2042.32)%22%20d%3D%22M0%200h132.3v158.41H0z%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3C%2Fsvg%3E");
+      background-repeat: repeat;
+      background-size: 85px;
+      width: 768px;
+      height: 512px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 32px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--c-borders);
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .top-part {
+      height: 128px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      padding: 24px;
+    }
+
+    .top-left {
+      display: flex;
+      gap: 16px;
+    }
+
+    .avatar {
+      border-radius: 9999px;
+      height: 100%;
+      width: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid var(--c-borders);
+    }
+
+    .top-left-text {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .username {
+      color: #000;
+      font-weight: 350;
+      font-size: 2.375rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .fullname,
+    .stats-block .label {
+      color: var(--c-labels);
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .top-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .top-right-text {
+      font-size: 0.875rem;
+      color: var(--c-labels);
+    }
+
+    .gh-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .middle-row {
+      flex: 0 0 48px;
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .bottom-part {
+      position: relative;
+      flex: 1 0 0;
+      display: grid;
+      gap: 1px;
+      background: var(--c-borders);
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    .rhomb-1, .rhomb-2 {
+      position: absolute;
+      top: 50%;
+      width: 11px;
+      height: 11px;
+      border: 1px solid var(--c-borders);
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: #fff;
+      z-index: 1;
+    }
+    .rhomb-1 { left: calc(100% / 3); }
+    .rhomb-2 { left: calc((100% / 3) * 2); }
+
+    .stats-block {
+      grid-area: span 1;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 24px;
+    }
+
+    .stats-block .num {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #000;
+      line-height: 1;
+      font-family: "Geist Mono", monospace;
+
+      position: relative;
+    }
+
+    .i-commits { color: var(--c-red); }
+    .i-stars { color: var(--c-yellow); }
+    .i-followers { color: var(--c-blue); }
+    .i-prs { color: var(--c-purple); }
+    .i-issues { color: var(--c-green); }
+    .i-repos { color: var(--c-brown); }
+
+    .i {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(0, -50%);
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="root">
+    <div class="card">
+      <div class="top-part">
+        <div class="top-left">
+          <img class="avatar" src="https://avatars.githubusercontent.com/u/53311479?v=4" alt="">
+          <div class="top-left-text">
+            <p class="username">evermake</p>
+            <p class="fullname">Vladislav Deryabkin</p>
+          </div>
+        </div>
+        <div class="top-right">
+          <svg class="gh-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="#000" d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38c0-.27.01-1.13.01-2.2c0-.75-.25-1.23-.54-1.48c1.78-.2 3.65-.88 3.65-3.95c0-.88-.31-1.59-.82-2.15c.08-.2.36-1.02-.08-2.12c0 0-.67-.22-2.2.82c-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82c-.44 1.1-.16 1.92-.08 2.12c-.51.56-.82 1.28-.82 2.15c0 3.06 1.86 3.75 3.64 3.95c-.23.2-.44.55-.51 1.07c-.46.21-1.61.55-2.33-.66c-.15-.24-.6-.83-1.23-.82c-.67.01-.27.38.01.53c.34.19.73.9.82 1.13c.16.45.68 1.31 2.69.94c0 .67.01 1.3.01 1.49c0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+          <p class="top-right-text">Joined on July 25, 2019</p>
+        </div>
+      </div>
+      <div class="middle-row">
+        <span>All Time Statistics</span>
+      </div>
+      <div class="bottom-part">
+        <span class="rhomb-1"></span>
+        <span class="rhomb-2"></span>
+        <div class="stats-block">
+          <div class="num">
+            <span>88.8k</span>
+            <svg class="i i-commits" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0 5 0"/></svg>
+          </div>
+          <span class="label">Commits</span>
+        </div>
+        <div class="stats-block">
+          <div class="num">
+            <span>1.1k</span>
+            <svg class="i i-stars" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815l4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97l.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25m0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45l2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084l2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456l-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183l-3.096-.45a.75.75 0 0 1-.564-.41z"/></svg>
+          </div>
+          <span class="label">Stars</span>
+        </div>
+        <div class="stats-block">
+          <div class="num">
+            <span>768</span>
+            <svg class="i i-followers" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549a5.51 5.51 0 0 1 3.034 4.084a.75.75 0 1 1-1.482.235a4 4 0 0 0-7.9 0a.75.75 0 0 1-1.482-.236A5.5 5.5 0 0 1 3.102 8.05A3.5 3.5 0 0 1 2 5.5M11 4a3.001 3.001 0 0 1 2.22 5.018a5 5 0 0 1 2.56 3.012a.749.749 0 0 1-.885.954a.75.75 0 0 1-.549-.514a3.51 3.51 0 0 0-2.522-2.372a.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5A.75.75 0 0 1 11 4m-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5"/></svg>
+          </div>
+          <span class="label">Followers</span>
+        </div>
+        <div class="stats-block">
+          <div class="num">
+            <span>28</span>
+            <svg class="i i-prs" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25m5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354M3.75 2.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5m0 9.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5m8.25.75a.75.75 0 1 0 1.5 0a.75.75 0 0 0-1.5 0"/></svg>
+          </div>
+          <span class="label">Pull Requests</span>
+        </div>
+        <div class="stats-block">
+          <div class="num">
+            <span>108</span>
+            <svg class="i i-issues" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M8 9.5a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"/><path fill="currentColor" d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M1.5 8a6.5 6.5 0 1 0 13 0a6.5 6.5 0 0 0-13 0"/></svg>
+          </div>
+          <span class="label">Issues</span>
+        </div>
+        <div class="stats-block">
+          <div class="num">
+            <span>13</span>
+            <svg class="i i-repos" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7a.75.75 0 1 1-1.072 1.05A2.5 2.5 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.5 2.5 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.25.25 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></svg>
+          </div>
+          <span class="label">Repositories</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
