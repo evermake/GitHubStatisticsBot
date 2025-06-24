@@ -1,15 +1,22 @@
 {
   "name": "github-stats-bot",
+  "type": "module",
   "version": "0.1.0",
+  "packageManager": "pnpm@10.12.1",
   "scripts": {
     "dev": "tsx watch --env-file=.env main.ts"
   },
-  "packageManager": "pnpm@10.12.1",
   "dependencies": {
-    "grammy": "^1.36.3"
+    "@grammyjs/runner": "^2.0.3",
+    "grammy": "^1.36.3",
+    "octokit": "^5.0.3",
+    "puppeteer": "^24.10.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.16.1",
     "@types/node": "^24.0.1",
-    "tsx": "^4.20.3"
+    "eslint": "^9.29.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }
