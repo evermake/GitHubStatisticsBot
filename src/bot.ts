@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { autoRetry } from '@grammyjs/auto-retry'
 import { run } from '@grammyjs/runner'
@@ -132,11 +133,20 @@ export async function main() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Launch.
-  fetcher.start()
   generator.start()
+  fetcher.start()
   taskQueue.start()
 
   const runner = run(bot)
+
+  // Graceful shutdown.
+  const stopRunner = () => runner.isRunning() && runner.stop()
+  process.once('SIGINT', stopRunner)
+  process.once('SIGTERM', stopRunner)
+
   await runner.task()
+  await taskQueue.stop()
+  await fetcher.stop()
+  await generator.stop()
   //////////////////////////////////////////////////////////////////////////////
 }
