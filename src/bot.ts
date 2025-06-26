@@ -17,7 +17,7 @@ const pathTo = (...parts: string[]) => resolve(__dirname, ...parts)
 export async function main() {
   const octokit = new Octokit()
   const fetcher = new StatsFetcher(octokit)
-  const blueprint = await fs.readFile(pathTo('../card.html'), 'utf-8')
+  const blueprint = await fs.readFile(pathTo('./blueprint.html'), 'utf-8')
   const browser = await puppeteer.launch({ browser: 'chrome' })
   let pdfGenerator: Generator<{ username: string, tgUserId: number, messageId: number }>
 
