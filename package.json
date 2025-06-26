@@ -2,12 +2,16 @@
   "name": "github-stats-bot",
   "type": "module",
   "version": "0.1.0",
+  "private": true,
   "packageManager": "pnpm@10.12.1",
   "scripts": {
-    "dev": "tsx watch --env-file=.env main.ts"
+    "dev": "tsx --env-file=.env src/main.ts"
   },
   "dependencies": {
+    "@grammyjs/auto-retry": "^2.0.2",
     "@grammyjs/runner": "^2.0.3",
+    "@octokit/plugin-retry": "^8.0.1",
+    "@octokit/plugin-throttling": "^11.0.1",
     "grammy": "^1.36.3",
     "octokit": "^5.0.3",
     "puppeteer": "^24.10.2"

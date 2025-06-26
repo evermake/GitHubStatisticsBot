@@ -8,9 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@grammyjs/auto-retry':
+        specifier: ^2.0.2
+        version: 2.0.2(grammy@1.36.3)
       '@grammyjs/runner':
         specifier: ^2.0.3
         version: 2.0.3(grammy@1.36.3)
+      '@octokit/plugin-retry':
+        specifier: ^8.0.1
+        version: 8.0.1(@octokit/core@7.0.2)
+      '@octokit/plugin-throttling':
+        specifier: ^11.0.1
+        version: 11.0.1(@octokit/core@7.0.2)
       grammy:
         specifier: ^1.36.3
         version: 1.36.3
@@ -344,6 +353,12 @@ packages:
   '@eslint/plugin-kit@0.3.2':
     resolution: {integrity: sha512-4SaFZCNfJqvk/kenHpI8xvN42DMaoycy4PzKc5otHxRswww1kAt82OlBuwRVLofCACCTZEcla2Ydxv8scMXaTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@grammyjs/auto-retry@2.0.2':
+    resolution: {integrity: sha512-b4A4p5jlYDiQtW0c0FXYe11WMkYoiW+5rvOaDMCOk1h7Pu2SDl7B7gmFF8cthWCx2+M2nWLOsBxAgbBG4kKWYg==}
+    engines: {node: '>=12.20.0 || >=14.13.1'}
+    peerDependencies:
+      grammy: ^1.10.0
 
   '@grammyjs/runner@2.0.3':
     resolution: {integrity: sha512-nckmTs1dPWfVQteK9cxqxzE+0m1VRvluLWB8UgFzsjg62w3qthPJt0TYtJBEdG7OedvfQq4vnFAyE6iaMkR42A==}
@@ -2225,6 +2240,13 @@ snapshots:
     dependencies:
       '@eslint/core': 0.15.0
       levn: 0.4.1
+
+  '@grammyjs/auto-retry@2.0.2(grammy@1.36.3)':
+    dependencies:
+      debug: 4.4.1
+      grammy: 1.36.3
+    transitivePeerDependencies:
+      - supports-color
 
   '@grammyjs/runner@2.0.3(grammy@1.36.3)':
     dependencies:
