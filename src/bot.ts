@@ -95,8 +95,8 @@ export async function main() {
     .use(async (ctx) => {
       const username = ctx.match
       const message = await ctx.reply(
-        `Fetching stats for <code}">${username}</code>...`,
-        { parse_mode: 'HTML' },
+        `Fetching stats for <a href="https://github.com/${username}">${username}</a>...`,
+        { parse_mode: 'HTML', link_preview_options: { is_disabled: true } },
       )
       taskQueue.addTask(
         { username },
@@ -118,7 +118,15 @@ export async function main() {
   taskQueue.setConsumer(async (result) => {
     bot.api.deleteMessage(result.meta.userTgId, result.meta.pendingMessageId)
     if (result.ok) {
-      await bot.api.sendPhoto(result.meta.userTgId, new InputFile(result.payload.png))
+      await bot.api.sendPhoto(
+        result.meta.userTgId,
+        new InputFile(result.payload.png),
+        {
+          caption: `Here's the <b>All Time Statistics</b> for <a href="https://github.com/${result.meta.targetGhUsername}">${result.meta.targetGhUsername}</a>`,
+          parse_mode: 'HTML',
+          show_caption_above_media: true,
+        },
+      )
     }
     else {
       console.error(result.error)
