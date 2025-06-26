@@ -145,10 +145,17 @@ export async function main() {
   fetcher.start()
   taskQueue.start()
 
+  await bot.init()
   const runner = run(bot)
+  console.info(`@${bot.botInfo.username} is running...`)
 
   // Graceful shutdown.
-  const stopRunner = () => runner.isRunning() && runner.stop()
+  const stopRunner = () => {
+    console.info('stopping...')
+    if (runner.isRunning()) {
+      runner.stop()
+    }
+  }
   process.once('SIGINT', stopRunner)
   process.once('SIGTERM', stopRunner)
 
